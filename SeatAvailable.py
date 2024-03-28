@@ -13,11 +13,14 @@ class SeatAvailable:
       "EventId" : "9377",
       "MaximumPrice" : 10000000,
       "MinimumPrice" : 0,
-      "Quantity" : 1
+      "Quantity" : 2
     }
+
+    
     #"https: //www.eticketing.co.uk/tottenhamhotspur/EDP/Seats/AvailableResale?AreSeatsTogether=false&EventId=9377&MarketType=1&MaximumPrice=10000000&MinimumPrice=0&Quantity=1"
-    self.captureUrl = 'https://www.eticketing.co.uk/tottenhamhotspur/EDP/Event/Index/9377?edpState=BestAvailable'
+    self.captureUrl = 'https://www.eticketing.co.uk/tottenhamhotspur/EDP/Seats/AvailableRegular?AreSeatsTogether=true&EventId=9377&MaximumPrice=10000000&MinimumPrice=0&Quantity=2'
     self.ticketUrl = 'https://www.eticketing.co.uk/tottenhamhotspur/EDP/Event/Index/9377?edpState=BestAvailable'
+    #self.ticketUrl='https://www.eticketing.co.uk/tottenhamhotspur/EDP/Seats/AvailableRegular?AreSeatsTogether=true&EventId=9377&MaximumPrice=10000000&MinimumPrice=0&Quantity=2'
     self.cookie_session = cookies
     self.header = {
       "Cookie" : f"{self.cookie_session}",
