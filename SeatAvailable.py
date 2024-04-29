@@ -8,10 +8,10 @@ class SeatAvailable:
   def __init__(self, cookies, quantity):
     self.request_url = 'https://www.eticketing.co.uk/tottenhamhotspur/EDP/Seats/AvailableRegular'
     self.param = {
-      "AreSeatsTogether" : "true",
+      "AreSeatsTogether" : "false",
       "EventId" : "9377",
-      "MaximumPrice" : 10000000,
-      "MinimumPrice" : 0,
+      "MaximumPrice" : "10000000",
+      "MinimumPrice" : "0",
       "Quantity" : quantity
     }
     self.captureUrl = 'https://www.eticketing.co.uk/tottenhamhotspur/EDP/Seats/AvailableRegular?AreSeatsTogether=true&EventId=9377&MaximumPrice=10000000&MinimumPrice=0&Quantity=2'
@@ -25,9 +25,14 @@ class SeatAvailable:
     }
     self.response = None
   def request(self):
-    self.response = requests.get(self.request_url, data=self.param, headers=self.header)
-    log.info(f"[{datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M:%S')}] {self.__class__} request ==> result : {self.response.status_code}, {self.response.text}")
-
+    print(self.__class__)
+    self.response = requests.get(self.getRequestUrl(), data=self.param, headers=self.header)
+    log.info(f"[{datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M:%S')}] {self.getRequestUrl()} request ==> result : {self.response.status_code}, {self.response.text}")
+  def getRequestUrl(self):
+    url = self.request_url + "?"
+    for key in self.param.keys():
+      url += key + "=" + self.param.get(key) + "&"
+    return url
   def getStatus(self):
     return self.response.status_code if self.response is not None else "response is none"
   def getJsonReponse(self):
@@ -37,12 +42,13 @@ class SeatAvailable:
 class ResaleSeatAvailable(SeatAvailable):
   def __init__(self, cookies, quantity):
     SeatAvailable.__init__(self, cookies, quantity)
-    self.request_url = "https://www.eticketing.co.uk/tottenhamhotspur/EDP/Seats/AvailableResale"
     self.param = {
-      "AreSeatsTogether": "true",
+      "AreSeatsTogether": "false",
       "EventId": "9377",
-      "MarketType" : "1",
-      "MaximumPrice": 10000000,
-      "MinimumPrice": 0,
+      "MarketType": "1",
+      "MaximumPrice": "10000000",
+      "MinimumPrice": "0",
       "Quantity": quantity
     }
+    self.request_url = "https://www.eticketing.co.uk/tottenhamhotspur/EDP/Seats/AvailableResale"
+
