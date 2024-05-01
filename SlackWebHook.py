@@ -1,7 +1,7 @@
 from slack_sdk import WebhookClient
 from slack_sdk.errors import SlackApiError
 def send_slack_notification(message):
-    client = WebhookClient("https://hooks.slack.com/services/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")
+    client = WebhookClient("https://hooks.slack.com/services/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")
     try:
         response = client.send(text=message)
     except SlackApiError as e:

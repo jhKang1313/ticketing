@@ -8,7 +8,7 @@ class SeatAvailable:
   def __init__(self, cookies, quantity):
     self.request_url = 'https://www.eticketing.co.uk/tottenhamhotspur/EDP/Seats/AvailableRegular'
     self.param = {
-      "AreSeatsTogether" : "false",
+      "AreSeatsTogether" : "true",
       "EventId" : "9377",
       "MaximumPrice" : "10000000",
       "MinimumPrice" : "0",
@@ -27,12 +27,12 @@ class SeatAvailable:
   def request(self):
     print(self.__class__)
     self.response = requests.get(self.getRequestUrl(), data=self.param, headers=self.header)
-    log.info(f"[{datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M:%S')}] {self.getRequestUrl()} request ==> result : {self.response.status_code}, {self.response.text}")
+    log.info(f"[{datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M:%S')}] request ==> result : {self.response.status_code}, {self.response.text}")
   def getRequestUrl(self):
     url = self.request_url + "?"
     for key in self.param.keys():
       url += key + "=" + self.param.get(key) + "&"
-    return url
+    return url[:-1]
   def getStatus(self):
     return self.response.status_code if self.response is not None else "response is none"
   def getJsonReponse(self):
@@ -43,7 +43,7 @@ class ResaleSeatAvailable(SeatAvailable):
   def __init__(self, cookies, quantity):
     SeatAvailable.__init__(self, cookies, quantity)
     self.param = {
-      "AreSeatsTogether": "false",
+      "AreSeatsTogether": "true",
       "EventId": "9377",
       "MarketType": "1",
       "MaximumPrice": "10000000",
